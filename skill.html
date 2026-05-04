@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnoldus | Skill</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav a {
+            text-decoration: none;
+            color: #a0a0b8;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        nav a:hover, nav a.active {
+            color: #64ffda;
+            border-bottom-color: #64ffda;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .page-header {
+            padding: 40px 20px 20px;
+            animation: fadeInUp 0.6s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page-header h2 {
+            font-size: 2em;
+            color: #ffffff;
+            border-left: 4px solid #64ffda;
+            padding-left: 16px;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        .card h3 {
+            color: #ccd6f6;
+            font-size: 1.1em;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: rgba(100, 255, 218, 0.08);
+            border: 1px solid rgba(100, 255, 218, 0.3);
+            color: #64ffda;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .skill-tag:hover {
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(100, 255, 218, 0.1);
+        }
+        .skill-tag.learning {
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            color: #8892b0;
+        }
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            height: 6px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #64ffda;
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #5a6078;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="skill.html" class="active">Skill</a>
+        <a href="projek.html">Projek</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h2>🚀 Skill</h2>
+        </div>
+
+        <div class="card">
+            <h3>💻 Tech Stack</h3>
+            <div class="skill-tags">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript (Dasar)</span>
+                <span class="skill-tag learning">React (next!)</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🛠️ Tools</h3>
+            <div class="skill-tags">
+                <span class="skill-tag">Acode Editor</span>
+                <span class="skill-tag">Termux</span>
+                <span class="skill-tag">Git & GitHub</span>
+                <span class="skill-tag">VS Code Web</span>
+                <span class="skill-tag learning">Figma</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📋 Learning Progress</h3>
+            <div style="margin-bottom: 16px;">
+                <span style="color: #8892b0; font-size: 14px;">HTML & CSS</span>
+                <span style="float: right; color: #64ffda; font-size: 13px;">75%</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <span style="color: #8892b0; font-size: 14px;">JavaScript</span>
+                <span style="float: right; color: #64ffda; font-size: 13px;">30%</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
+            </div>
+            <div>
+                <span style="color: #8892b0; font-size: 14px;">Git & Deployment</span>
+                <span style="float: right; color: #64ffda; font-size: 13px;">50%</span>
+                <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>© 2026 Arnoldus — Dibuat dengan ❤️ dari HP</footer>
+
+</body>
+</html>
