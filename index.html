@@ -5,22 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arnoldus Zebua | IT Engineer</title>
     <meta name="description" content="Portofolio Arnoldus Fahuwusa Zebua - IT Engineer, dibangun dari nol menggunakan smartphone.">
-    <meta name="google-site-verification" content="O1rAy-H53hyuTbBP2xJFBZcEMn8-_x3hpN3pS1XKMio" />
+    <meta name="google-site-verification" content="01rAy-H53hyuTbBP2xJFBZcEMn8-x3hpN3pS1XKMio" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* ========== DARK THEME (DEFAULT) ========== */
+        /* ========== STARFIELD BACKGROUND ========== */
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #e0e0e0;
             min-height: 100vh;
             transition: all 0.4s ease;
+            position: relative;
         }
         body.light-mode {
             background: linear-gradient(135deg, #e8f5e9, #c8e6c9, #a5d6a7);
             color: #1e293b;
         }
+        .content-wrapper { position: relative; z-index: 1; }
+
+        /* ========== FLOATING SOCIAL ICONS ========== */
+        .floating-socials {
+            position: fixed;
+            right: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 99;
+        }
+        .floating-socials a {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: floatUp 0.6s ease both;
+        }
+        .floating-socials a:nth-child(1) { animation-delay: 0.1s; }
+        .floating-socials a:nth-child(2) { animation-delay: 0.2s; }
+        .floating-socials a:nth-child(3) { animation-delay: 0.3s; }
+        .floating-socials a:hover {
+            transform: scale(1.15) translateY(-5px);
+            background: #64ffda;
+            color: #0f172a;
+            border-color: #64ffda;
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+        }
+        @keyframes floatUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ========== NAVIGASI ========== */
         nav {
@@ -63,7 +106,7 @@
             color: #64ffda;
             border-bottom-color: #64ffda;
         }
-        body.light-mode .nav-links a:hover, 
+        body.light-mode .nav-links a:hover,
         body.light-mode .nav-links a.active {
             color: #0d9488;
             border-bottom-color: #0d9488;
@@ -129,12 +172,24 @@
             font-weight: 700;
         }
         body.light-mode .hero h1 { color: #0f172a; }
-        .hero .tagline {
-            color: #8892b0;
-            font-size: 1.05em;
+
+        /* ========== TYPEWRITER ========== */
+        .typewriter-wrapper {
+            min-height: 28px;
             margin-bottom: 22px;
         }
-        body.light-mode .hero .tagline { color: #475569; }
+        .typewriter {
+            color: #64ffda;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-right: 2px solid #64ffda;
+            padding-right: 6px;
+            animation: blink 0.7s infinite;
+        }
+        body.light-mode .typewriter { color: #0d9488; border-right-color: #0d9488; }
+        @keyframes blink { 50% { border-color: transparent; } }
+
         .badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
         .badge {
             background: rgba(100, 255, 218, 0.08);
@@ -145,6 +200,7 @@
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.3px;
+            animation: fadeInUp 0.8s ease 0.2s both;
         }
         body.light-mode .badge {
             background: rgba(13, 148, 136, 0.08);
@@ -157,7 +213,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        .btn-primary, .btn-secondary {
+        .btn-primary, .btn-secondary, .btn-cv {
             padding: 13px 28px;
             border-radius: 10px;
             font-weight: 700;
@@ -171,35 +227,26 @@
             background: #64ffda;
             color: #0f172a;
             box-shadow: 0 8px 25px rgba(100, 255, 218, 0.25);
+            animation: fadeInUp 0.8s ease 0.3s both;
         }
-        .btn-primary:hover {
-            background: #4fd1c5;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(100, 255, 218, 0.4);
-        }
-        body.light-mode .btn-primary {
-            background: #0d9488;
-            color: #ffffff;
-            box-shadow: 0 8px 25px rgba(13, 148, 136, 0.25);
-        }
+        .btn-primary:hover { background: #4fd1c5; transform: translateY(-2px); box-shadow: 0 12px 35px rgba(100, 255, 218, 0.4); }
+        body.light-mode .btn-primary { background: #0d9488; color: #ffffff; box-shadow: 0 8px 25px rgba(13, 148, 136, 0.25); }
         .btn-secondary {
             background: transparent;
             border: 2px solid #64ffda;
             color: #64ffda;
+            animation: fadeInUp 0.8s ease 0.4s both;
         }
-        .btn-secondary:hover {
-            background: rgba(100, 255, 218, 0.08);
-            transform: translateY(-2px);
+        .btn-secondary:hover { background: rgba(100, 255, 218, 0.08); transform: translateY(-2px); }
+        body.light-mode .btn-secondary { border-color: #0d9488; color: #0d9488; }
+        .btn-cv {
+            background: #ff6b6b;
+            color: #fff;
+            animation: fadeInUp 0.8s ease 0.5s both;
         }
-        body.light-mode .btn-secondary {
-            border-color: #0d9488;
-            color: #0d9488;
-        }
-        body.light-mode .btn-secondary:hover {
-            background: rgba(13, 148, 136, 0.08);
-        }
+        .btn-cv:hover { background: #ee5a5a; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3); }
 
-        /* ========== ABOUT CARD ========== */
+        /* ========== ABOUT ========== */
         .about-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -207,7 +254,7 @@
             padding: 35px 30px;
             margin-top: 24px;
             backdrop-filter: blur(10px);
-            animation: fadeInUp 0.8s ease 0.2s both;
+            animation: fadeInUp 0.8s ease 0.4s both;
             transition: all 0.4s ease;
         }
         body.light-mode .about-card {
@@ -222,11 +269,7 @@
             padding-left: 14px;
         }
         body.light-mode .about-card h2 { color: #1e293b; border-left-color: #0d9488; }
-        .about-card p {
-            color: #8892b0;
-            line-height: 1.8;
-            font-size: 0.95em;
-        }
+        .about-card p { color: #8892b0; line-height: 1.8; font-size: 0.95em; }
         body.light-mode .about-card p { color: #475569; }
 
         /* ========== STATS ========== */
@@ -244,30 +287,14 @@
             text-align: center;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease 0.3s both;
+            animation: fadeInUp 0.8s ease 0.5s both;
         }
-        .stat-card:hover {
-            border-color: rgba(100, 255, 218, 0.2);
-            transform: translateY(-3px);
-        }
-        body.light-mode .stat-card {
-            background: rgba(255, 255, 255, 0.8);
-            border-color: rgba(0, 0, 0, 0.08);
-        }
-        body.light-mode .stat-card:hover {
-            border-color: rgba(13, 148, 136, 0.3);
-        }
-        .stat-number {
-            font-size: 2em;
-            font-weight: 800;
-            color: #64ffda;
-        }
+        .stat-card:hover { border-color: rgba(100, 255, 218, 0.2); transform: translateY(-3px); }
+        body.light-mode .stat-card { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.08); }
+        body.light-mode .stat-card:hover { border-color: rgba(13, 148, 136, 0.3); }
+        .stat-number { font-size: 2em; font-weight: 800; color: #64ffda; }
         body.light-mode .stat-number { color: #0d9488; }
-        .stat-label {
-            color: #8892b0;
-            font-size: 0.8em;
-            margin-top: 4px;
-        }
+        .stat-label { color: #8892b0; font-size: 0.8em; margin-top: 4px; }
         body.light-mode .stat-label { color: #64748b; }
 
         /* ========== FOOTER ========== */
@@ -279,7 +306,6 @@
         }
         body.light-mode footer { color: #64748b; }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 500px) {
             .hero h1 { font-size: 1.8em; }
             .nav-links { gap: 14px; }
@@ -289,82 +315,147 @@
 </head>
 <body>
 
-    <!-- ========== NAVIGASI ========== -->
-    <nav>
-        <a href="index.html" class="nav-logo">AZ</a>
-        <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="skill.html">Skill</a>
-            <a href="projek.html">Projek</a>
-            <a href="kontak.html">Kontak</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="themeBtn">☀️</button>
-        </div>
-    </nav>
+    <!-- STARFIELD CANVAS -->
+    <canvas id="starfield"></canvas>
 
-    <!-- ========== HERO ========== -->
-    <div class="container">
-        <div class="hero">
-            <div class="avatar-wrapper" id="avatarWrapper">
-                <!-- Foto profil: kalau gagal load, fallback ke inisial -->
-                <img src="https://arnoldf-ai.github.io/portofolio/IMG20260501214726.jpg" 
-                     alt="Arnoldus Zebua" 
-                     onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
-                <div class="avatar-fallback" id="avatarFallback" style="display:none;">AZ</div>
-            </div>
-            <h1>Arnoldus Fahuwusa Zebua</h1>
-            <p class="tagline">IT Engineer • Web Developer • From Scratch to Production</p>
-            <div class="badge-row">
-                <span class="badge">🚀 Available for Opportunities</span>
-                <span class="badge">📱 Mobile Creator</span>
-            </div>
-            <div class="cta-row">
-                <a href="projek.html" class="btn-primary">🔍 Lihat Projek</a>
-                <a href="kontak.html" class="btn-secondary">💬 Hubungi Saya</a>
-            </div>
-        </div>
-
-        <!-- ========== ABOUT ========== -->
-        <div class="about-card">
-            <h2>👋 Tentang Saya</h2>
-            <p>
-                Halo! Saya <strong>Arnoldus</strong>, seorang IT Engineer yang membangun karier dari nol — benar-benar dari smartphone. 
-                Website ini adalah bukti bahwa keterbatasan alat bukanlah hambatan untuk menciptakan karya profesional. 
-                Saat ini saya fokus di <strong style="color:#64ffda;">web development</strong>, 
-                <strong style="color:#64ffda;">UI engineering</strong>, dan terus mengasah skill untuk menjadi full-stack developer.
-            </p>
-        </div>
-
-        <!-- ========== STATS ========== -->
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-number">1+</div>
-                <div class="stat-label">Projek Selesai</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">5+</div>
-                <div class="stat-label">Tools Dikuasai</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Dari HP</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Semangat Belajar</div>
-            </div>
-        </div>
+    <!-- FLOATING SOCIALS -->
+    <div class="floating-socials">
+        <a href="https://instagram.com/arnoldfzebua" target="_blank" title="Instagram">📸</a>
+        <a href="https://github.com/arnoldf-ai" target="_blank" title="GitHub">🐱</a>
+        <a href="https://wa.me/6285246843647" target="_blank" title="WhatsApp">💬</a>
     </div>
 
-    <!-- ========== FOOTER ========== -->
-    <footer>
-        © 2026 Arnoldus Fahuwusa Zebua — Dibangun dengan ❤️ dari Android
-    </footer>
+    <!-- CONTENT -->
+    <div class="content-wrapper">
+        <nav>
+            <a href="index.html" class="nav-logo">AZ</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="skill.html">Skill</a>
+                <a href="projek.html">Projek</a>
+                <a href="kontak.html">Kontak</a>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
+            </div>
+        </nav>
 
-    <!-- ========== THEME TOGGLE SCRIPT ========== -->
+        <div class="container">
+            <div class="hero">
+                <div class="avatar-wrapper">
+                    <img src="https://arnoldf-ai.github.io/portofolio/IMG20260501214726.jpg" alt="Arnoldus Zebua"
+                         onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
+                    <div class="avatar-fallback" id="avatarFallback" style="display:none;">AZ</div>
+                </div>
+                <h1>Arnoldus Fahuwusa Zebua</h1>
+                <div class="typewriter-wrapper">
+                    <span class="typewriter" id="typewriter"></span>
+                </div>
+                <div class="badge-row">
+                    <span class="badge">🚀 Available for Opportunities</span>
+                    <span class="badge">📱 Mobile Creator</span>
+                </div>
+                <div class="cta-row">
+                    <a href="projek.html" class="btn-primary">🔍 Lihat Projek</a>
+                    <a href="kontak.html" class="btn-secondary">💬 Hubungi Saya</a>
+                    <a href="#" class="btn-cv">📄 Download CV</a>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h2>👋 Tentang Saya</h2>
+                <p>
+                    Halo! Saya <strong>Arnoldus</strong>, seorang IT Engineer yang membangun karier dari nol — benar-benar dari smartphone.
+                    Website ini adalah bukti bahwa keterbatasan alat bukanlah hambatan untuk menciptakan karya profesional.
+                    Saat ini saya fokus di <strong style="color:#64ffda;">web development</strong>,
+                    <strong style="color:#64ffda;">UI engineering</strong>, dan terus mengasah skill untuk menjadi full-stack developer.
+                </p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-number">1+</div><div class="stat-label">Projek Selesai</div></div>
+                <div class="stat-card"><div class="stat-number">5+</div><div class="stat-label">Tools Dikuasai</div></div>
+                <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Dari HP</div></div>
+                <div class="stat-card"><div class="stat-number">∞</div><div class="stat-label">Semangat Belajar</div></div>
+            </div>
+        </div>
+
+        <footer>© 2026 Arnoldus Fahuwusa Zebua — Dibangun dengan ❤️ dari Android</footer>
+    </div>
+
     <script>
+        // ========== STARFIELD ANIMATION ==========
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initStars();
+        });
+        function initStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 2000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.8 + 0.3,
+                    speed: Math.random() * 0.4 + 0.1,
+                    opacity: Math.random(),
+                    twinkleSpeed: Math.random() * 0.02 + 0.005
+                });
+            }
+        }
+        initStars();
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const isLight = document.body.classList.contains('light-mode');
+            const starColor = isLight ? 'rgba(13, 148, 136, OPACITY)' : 'rgba(100, 255, 218, OPACITY)';
+            stars.forEach(s => {
+                s.opacity += s.twinkleSpeed;
+                if (s.opacity > 1 || s.opacity < 0.1) s.twinkleSpeed *= -1;
+                s.y += s.speed;
+                if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = starColor.replace('OPACITY', s.opacity);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+
+        // ========== TYPEWRITER ==========
+        const phrases = [
+            'IT Engineer',
+            'Web Developer',
+            'From Scratch to Production',
+            'Mobile Creator',
+            'Full-Stack Learner'
+        ];
+        let phraseIndex = 0, charIndex = 0, isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+        function typeWriter() {
+            const current = phrases[phraseIndex];
+            if (!isDeleting) {
+                typewriterEl.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === current.length) { isDeleting = true; setTimeout(typeWriter, 2000); return; }
+            } else {
+                typewriterEl.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; }
+            }
+            setTimeout(typeWriter, isDeleting ? 40 : 80);
+        }
+        typeWriter();
+
+        // ========== THEME TOGGLE ==========
         const body = document.body;
         const themeBtn = document.getElementById('themeBtn');
-
         function setTheme(mode) {
             if (mode === 'light') {
                 body.classList.add('light-mode');
@@ -376,25 +467,13 @@
                 localStorage.setItem('theme', 'dark');
             }
         }
-
         function toggleTheme() {
-            if (body.classList.contains('light-mode')) {
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
+            body.classList.contains('light-mode') ? setTheme('dark') : setTheme('light');
         }
-
-        // Load saved theme
         (function() {
             const saved = localStorage.getItem('theme');
-            if (saved === 'light') {
-                setTheme('light');
-            } else {
-                setTheme('dark');
-            }
+            saved === 'light' ? setTheme('light') : setTheme('dark');
         })();
     </script>
-
 </body>
 </html>
