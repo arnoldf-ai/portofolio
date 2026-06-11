@@ -5,96 +5,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projek | Arnoldus Zebua</title>
     <meta name="description" content="Projek dan karya Arnoldus Zebua - IT Engineer, dibangun dari smartphone.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #e0e0e0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0a0c15;
+            color: #eef2ff;
             min-height: 100vh;
             transition: all 0.4s ease;
+            position: relative;
         }
-        body.light-mode { background: linear-gradient(135deg, #e8f5e9, #c8e6c9, #a5d6a7); color: #1e293b; }
-        .content-wrapper { position: relative; z-index: 1; }
 
-        .floating-socials { position: fixed; right: 20px; bottom: 30px; display: flex; flex-direction: column; gap: 12px; z-index: 99; }
-        .floating-socials a {
-            width: 46px; height: 46px; border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; text-decoration: none; transition: all 0.3s ease;
-            animation: floatUp 0.6s ease both;
+        /* Light mode */
+        body.light-mode {
+            background: #f1f5f9;
+            color: #0f172a;
         }
+
+        /* Floating Socials */
+        .floating-socials {
+            position: fixed;
+            right: 24px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 99;
+        }
+
+        .floating-socials a {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: floatUp 0.6s ease both;
+            color: #94a3b8;
+        }
+
+        body.light-mode .floating-socials a {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: #475569;
+        }
+
         .floating-socials a:nth-child(1) { animation-delay: 0.1s; }
         .floating-socials a:nth-child(2) { animation-delay: 0.2s; }
         .floating-socials a:nth-child(3) { animation-delay: 0.3s; }
-        .floating-socials a:hover { transform: scale(1.15) translateY(-5px); background: #64ffda; color: #0f172a; border-color: #64ffda; box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3); }
-        @keyframes floatUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 24px; background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            position: sticky; top: 0; z-index: 100;
+        .floating-socials a:hover {
+            transform: scale(1.15) translateY(-5px);
+            background: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
         }
-        body.light-mode nav { background: rgba(255, 255, 255, 0.7); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-        .nav-logo { font-size: 1.5em; font-weight: 800; color: #64ffda; text-decoration: none; letter-spacing: -1px; }
-        body.light-mode .nav-logo { color: #0d9488; }
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #a0a0b8; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; transition: all 0.3s ease; padding: 6px 0; border-bottom: 2px solid transparent; }
-        body.light-mode .nav-links a { color: #475569; }
-        .nav-links a:hover, .nav-links a.active { color: #64ffda; border-bottom-color: #64ffda; }
-        body.light-mode .nav-links a:hover, body.light-mode .nav-links a.active { color: #0d9488; border-bottom-color: #0d9488; }
-        .theme-toggle { background: rgba(100, 255, 218, 0.1); border: 1px solid rgba(100, 255, 218, 0.2); color: #64ffda; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
-        .theme-toggle:hover { background: rgba(100, 255, 218, 0.2); transform: scale(1.05); }
-        body.light-mode .theme-toggle { background: rgba(13, 148, 136, 0.1); border-color: rgba(13, 148, 136, 0.2); color: #0d9488; }
 
-        .container { max-width: 720px; margin: 0 auto; padding: 20px; }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .page-header { padding: 40px 20px 10px; animation: fadeInUp 0.6s ease; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .page-header h2 { font-size: 2em; color: #ffffff; border-left: 4px solid #64ffda; padding-left: 16px; }
-        body.light-mode .page-header h2 { color: #0f172a; border-left-color: #0d9488; }
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 32px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-logo {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #3b82f6;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        body.light-mode .nav-links a {
+            color: #475569;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .theme-toggle {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px 24px;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 40px 20px 20px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header h2 {
+            font-size: 2em;
+            color: #ffffff;
+            border-left: 4px solid #3b82f6;
+            padding-left: 16px;
+            font-weight: 700;
+        }
+
+        body.light-mode .page-header h2 {
+            color: #0f172a;
+        }
+
+        /* Project Card */
         .project-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px; padding: 25px; margin-bottom: 16px;
-            backdrop-filter: blur(10px); transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
             animation: fadeInUp 0.6s ease both;
         }
-        body.light-mode .project-card { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.08); }
-        .project-card:hover { border-color: rgba(100, 255, 218, 0.25); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); }
-        body.light-mode .project-card:hover { border-color: rgba(13, 148, 136, 0.3); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); }
-        .project-card h3 { color: #ffffff; font-size: 1.2em; margin-bottom: 8px; }
-        body.light-mode .project-card h3 { color: #0f172a; }
-        .project-card p { color: #8892b0; font-size: 0.9em; line-height: 1.6; margin-bottom: 15px; }
-        body.light-mode .project-card p { color: #475569; }
+
+        .project-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-3px);
+        }
+
+        body.light-mode .project-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card h3 {
+            color: #ffffff;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        body.light-mode .project-card h3 {
+            color: #0f172a;
+        }
+
+        .project-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+
+        body.light-mode .project-card p {
+            color: #334155;
+        }
+
+        .tech-stack {
+            font-size: 0.8em;
+            color: #3b82f6;
+            margin-bottom: 12px;
+        }
+
         .status-badge {
-            display: inline-block; padding: 5px 14px; border-radius: 50px;
-            font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 16px;
         }
-        .status-done { background: rgba(100, 255, 218, 0.12); color: #64ffda; border: 1px solid rgba(100, 255, 218, 0.25); }
-        .status-progress { background: rgba(255, 193, 7, 0.1); color: #ffc107; border: 1px solid rgba(255, 193, 7, 0.25); }
-        body.light-mode .status-done { background: rgba(13, 148, 136, 0.12); color: #0d9488; border-color: rgba(13, 148, 136, 0.25); }
+
+        .status-done {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-progress {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3b82f6;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Empty state */
         .project-empty {
-            text-align: center; padding: 50px 30px;
-            border: 2px dashed rgba(255, 255, 255, 0.1); border-radius: 20px;
-            color: #5a6078; animation: fadeInUp 0.6s ease 0.2s both;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(16px);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 50px 30px;
+            text-align: center;
+            color: #64748b;
         }
-        body.light-mode .project-empty { border-color: rgba(0, 0, 0, 0.1); color: #64748b; }
 
-        footer { text-align: center; padding: 40px 20px; color: #5a6078; font-size: 13px; }
-        body.light-mode footer { color: #64748b; }
+        body.light-mode .project-empty {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
 
-        @media (max-width: 500px) { .page-header h2 { font-size: 1.6em; } }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        @media (max-width: 500px) {
+            nav {
+                padding: 14px 20px;
+            }
+            .nav-links {
+                gap: 16px;
+            }
+            .page-header h2 {
+                font-size: 1.6em;
+            }
+            .container {
+                padding: 16px;
+            }
+            .project-card {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <canvas id="starfield"></canvas>
 
     <div class="floating-socials">
         <a href="https://instagram.com/arnoldfzebua" target="_blank">📸</a>
@@ -110,30 +330,40 @@
                 <a href="skill.html">Skill</a>
                 <a href="projek.html" class="active">Projek</a>
                 <a href="kontak.html">Kontak</a>
+                <a href="microtools.html">MicroTools</a>
                 <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
             </div>
         </nav>
 
         <div class="container">
-            <div class="page-header"><h2>💻 Projek</h2></div>
+            <div class="page-header">
+                <h2>💻 Projek & Karya</h2>
+            </div>
 
+            <!-- PROJECT 1: WEBSITE PORTOFOLIO -->
             <div class="project-card" style="animation-delay: 0.1s;">
                 <h3>📁 Website Portofolio Pribadi</h3>
-                <p>Projek pertama saya! Website profesional ini dibuat sepenuhnya menggunakan smartphone Android dengan Acode editor. Dibangun dengan HTML & CSS custom, menampilkan informasi personal, skill, projek, dan kontak form fungsional.</p>
-                <p style="font-size:0.8em;color:#64ffda;">🛠️ Tech: HTML5, CSS3, JavaScript, GitHub Pages, Formspree</p>
+                <p>Website profesional pertama saya! Dibangun sepenuhnya dari smartphone Android dengan HTML, CSS, dan JavaScript. Menampilkan informasi personal, skill, projek, dan form kontak fungsional.</p>
+                <div class="tech-stack">🛠️ Tech: HTML5, CSS3, JavaScript, GitHub Pages, Formspree</div>
                 <span class="status-badge status-done">✅ SELESAI</span>
+                <br>
+                <a href="index.html" class="project-link">🔗 Kunjungi Website →</a>
             </div>
 
+            <!-- PROJECT 2: MICROTOOLS PLATFORM -->
             <div class="project-card" style="animation-delay: 0.2s;">
-                <h3>🔧 Coming Soon: Mini Tools App</h3>
-                <p>Aplikasi web berisi kumpulan tools sederhana (kalkulator, konverter, to-do list) yang bisa diakses gratis. Dibangun untuk belajar JavaScript lebih dalam.</p>
-                <p style="font-size:0.8em;color:#ffc107;">🛠️ Tech: HTML5, CSS3, JavaScript (Vanilla)</p>
-                <span class="status-badge status-progress">🚧 IN PROGRESS</span>
+                <h3>⚡ MicroTools Platform</h3>
+                <p>Aplikasi web dengan 3 fitur produktivitas: To-Do List untuk manajemen tugas, Catatan Harian untuk menulis ide, dan Kalkulator Finansial untuk hitung-hitungan cepat. Data tersimpan otomatis di HP kamu.</p>
+                <div class="tech-stack">🛠️ Tech: HTML5, CSS3, JavaScript, LocalStorage</div>
+                <span class="status-badge status-done">✅ SELESAI</span>
+                <br>
+                <a href="microtools.html" class="project-link">🔗 Buka MicroTools →</a>
             </div>
 
+            <!-- PROJECT 3: AKAN DATANG -->
             <div class="project-empty">
-                <p style="font-size:1.1em;margin-bottom:6px;">🚀 Lebih banyak projek segera hadir!</p>
-                <p style="font-size:0.85em;">Stay tuned — perjalanan baru saja dimulai.</p>
+                <p style="font-size: 1.1em; margin-bottom: 8px;">🚀 Projek Berikutnya</p>
+                <p style="font-size: 0.85em;">Masih dalam tahap perencanaan. Stay tuned untuk update selanjutnya!</p>
             </div>
         </div>
 
@@ -141,33 +371,30 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        function rs() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        rs(); window.addEventListener('resize', () => { rs(); is(); });
-        function is() {
-            stars = [];
-            const c = Math.floor((canvas.width * canvas.height) / 2000);
-            for (let i = 0; i < c; i++) stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.8 + 0.3, s: Math.random() * 0.4 + 0.1, o: Math.random(), ts: Math.random() * 0.02 + 0.005 });
-        }
-        is();
-        function as() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const il = document.body.classList.contains('light-mode');
-            const sc = il ? 'rgba(13, 148, 136, OP)' : 'rgba(100, 255, 218, OP)';
-            stars.forEach(s => { s.o += s.ts; if (s.o > 1 || s.o < 0.1) s.ts *= -1; s.y += s.s; if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; } ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = sc.replace('OP', s.o); ctx.fill(); });
-            requestAnimationFrame(as);
-        }
-        as();
+        // Theme toggle
         const body = document.body;
         const themeBtn = document.getElementById('themeBtn');
-        function st(m) {
-            if (m === 'light') { body.classList.add('light-mode'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); }
-            else { body.classList.remove('light-mode'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); }
+        
+        function setTheme(mode) {
+            if (mode === 'light') {
+                body.classList.add('light-mode');
+                themeBtn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                themeBtn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
         }
-        function toggleTheme() { body.classList.contains('light-mode') ? st('dark') : st('light'); }
-        (function() { const sv = localStorage.getItem('theme'); sv === 'light' ? st('light') : st('dark'); })();
+        
+        function toggleTheme() {
+            body.classList.contains('light-mode') ? setTheme('dark') : setTheme('light');
+        }
+        
+        (function() {
+            const saved = localStorage.getItem('theme');
+            saved === 'light' ? setTheme('light') : setTheme('dark');
+        })();
     </script>
 </body>
 </html>
