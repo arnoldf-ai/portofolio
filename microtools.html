@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MicroTools | Arnoldus Zebua</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:#0a0c15;color:#eef2ff;transition:all 0.4s;padding:20px;}
+        body.light-mode{background:#f1f5f9;color:#0f172a;}
+        .container{max-width:700px;margin:0 auto;}
+        .header{text-align:center;margin:20px 0 30px;}
+        .header h1{font-size:2rem;color:#3b82f6;}
+        .theme-btn{position:fixed;top:20px;right:20px;background:rgba(59,130,246,0.2);border:none;padding:10px 16px;border-radius:40px;color:#3b82f6;font-weight:600;cursor:pointer;z-index:100;}
+        .tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+        .tab-btn{flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:#94a3b8;font-weight:600;cursor:pointer;text-align:center;}
+        body.light-mode .tab-btn{background:rgba(0,0,0,0.05);border-color:#cbd5e1;}
+        .tab-btn.active{background:#3b82f6;color:white;}
+        .panel{display:none;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);border-radius:20px;padding:24px;border:1px solid rgba(255,255,255,0.1);}
+        body.light-mode .panel{background:rgba(255,255,255,0.7);}
+        .panel.active{display:block;}
+        .todo-input{display:flex;gap:10px;margin-bottom:20px;}
+        .todo-input input{flex:1;padding:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#e2e8f0;}
+        body.light-mode .todo-input input{background:white;border-color:#cbd5e1;color:#0f172a;}
+        .todo-input button,.download-btn{padding:12px 20px;background:#3b82f6;border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;}
+        .todo-list{list-style:none;margin:20px 0;}
+        .todo-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.1);}
+        .todo-item .todo-text{flex:1;}
+        .todo-item .todo-text.done{text-decoration:line-through;opacity:0.6;}
+        .todo-item button{background:rgba(239,68,68,0.2);border:none;color:#ef4444;padding:5px 12px;border-radius:8px;cursor:pointer;}
+        select,textarea{width:100%;padding:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:#e2e8f0;margin-bottom:12px;}
+        body.light-mode select,body.light-mode textarea{background:white;border-color:#cbd5e1;color:#0f172a;}
+        .translate-btn{width:100%;padding:12px;background:#3b82f6;border:none;border-radius:10px;color:white;font-weight:600;cursor:pointer;}
+        .calc-display{background:rgba(0,0,0,0.4);padding:20px;border-radius:12px;text-align:right;font-size:2rem;margin-bottom:16px;}
+        .calc-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+        .calc-btn{padding:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:12px;color:white;font-size:1.2rem;cursor:pointer;}
+        body.light-mode .calc-btn{background:rgba(0,0,0,0.05);color:#0f172a;}
+        .calc-btn.operator{background:rgba(59,130,246,0.2);color:#3b82f6;}
+        .calc-btn.equals{background:#3b82f6;color:white;}
+        .history{margin-top:20px;padding:12px;background:rgba(0,0,0,0.2);border-radius:12px;font-size:12px;max-height:150px;overflow-y:auto;}
+        .footer{text-align:center;margin-top:30px;font-size:12px;color:#64748b;}
+        @media(max-width:500px){.tabs{flex-direction:column;}.calc-btn{padding:12px;}}
+    </style>
+</head>
+<body>
+
+<button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark</button>
+
+<div class="container">
+    <div class="header">
+        <h1>⚡ MicroTools</h1>
+        <p>To-Do List • Translator • Kalkulator + History</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="todo">✅ To-Do List</button>
+        <button class="tab-btn" data-tab="translate">🌐 Translator</button>
+        <button class="tab-btn" data-tab="calc">🧮 Kalkulator</button>
+    </div>
+
+    <div class="panel active" id="todoPanel">
+        <div class="todo-input">
+            <input type="text" id="todoInput" placeholder="Tulis tugas baru...">
+            <button onclick="addTodo()">Tambah</button>
+        </div>
+        <ul class="todo-list" id="todoList"></ul>
+        <button class="download-btn" onclick="downloadTodo()">📥 Download Daftar Tugas</button>
+    </div>
+
+    <div class="panel" id="translatePanel">
+        <textarea id="translateInput" rows="3" placeholder="Masukkan teks untuk diterjemahkan..."></textarea>
+        <select id="langSelect">
+            <option value="id">🇮🇩 Indonesia</option>
+            <option value="en">🇬🇧 English</option>
+            <option value="ja">🇯🇵 Jepang</option>
+            <option value="ko">🇰🇷 Korea</option>
+            <option value="zh">🇨🇳 Mandarin</option>
+            <option value="ar">🇸🇦 Arab</option>
+            <option value="es">🇪🇸 Spanyol</option>
+            <option value="fr">🇫🇷 Prancis</option>
+        </select>
+        <button class="translate-btn" onclick="translateText()">🌍 Terjemahkan</button>
+        <textarea id="translateOutput" rows="3" readonly placeholder="Hasil terjemahan..."></textarea>
+    </div>
+
+    <div class="panel" id="calcPanel">
+        <div class="calc-display" id="calcDisplay">0</div>
+        <div class="calc-buttons">
+            <button class="calc-btn" onclick="calcInput('7')">7</button>
+            <button class="calc-btn" onclick="calcInput('8')">8</button>
+            <button class="calc-btn" onclick="calcInput('9')">9</button>
+            <button class="calc-btn operator" onclick="calcInput('÷')">÷</button>
+            <button class="calc-btn" onclick="calcInput('4')">4</button>
+            <button class="calc-btn" onclick="calcInput('5')">5</button>
+            <button class="calc-btn" onclick="calcInput('6')">6</button>
+            <button class="calc-btn operator" onclick="calcInput('×')">×</button>
+            <button class="calc-btn" onclick="calcInput('1')">1</button>
+            <button class="calc-btn" onclick="calcInput('2')">2</button>
+            <button class="calc-btn" onclick="calcInput('3')">3</button>
+            <button class="calc-btn operator" onclick="calcInput('-')">-</button>
+            <button class="calc-btn" onclick="calcInput('0')">0</button>
+            <button class="calc-btn" onclick="calcInput('.')">.</button>
+            <button class="calc-btn" onclick="calcClear()">C</button>
+            <button class="calc-btn operator" onclick="calcInput('+')">+</button>
+            <button class="calc-btn equals" onclick="calcResult()">=</button>
+        </div>
+        <div class="history"><strong>📜 History:</strong><br><span id="historyList">Belum ada</span></div>
+    </div>
+
+    <div class="footer">© 2026 Arnoldus Fahuwusa Zebua — Data tersimpan di HP</div>
+</div>
+
+<script>
+    // THEME
+    const setTheme=(m)=>{document.body.classList[m==='light'?'add':'remove']('light-mode');let b=document.getElementById('themeBtn');b.textContent=m==='light'?'☀️ Light':'🌙 Dark';localStorage.setItem('microtools_theme',m);}
+    const toggleTheme=()=>{const isLight=document.body.classList.contains('light-mode');setTheme(isLight?'dark':'light');}
+    const saved=localStorage.getItem('microtools_theme');saved==='light'?setTheme('light'):setTheme('dark');
+
+    // TABS
+    document.querySelectorAll('.tab-btn').forEach(btn=>{btn.onclick=()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(btn.dataset.tab+'Panel').classList.add('active');};});
+
+    // TO-DO LIST
+    let todos=JSON.parse(localStorage.getItem('microtools_todos')||'[]');
+    const saveTodos=()=>localStorage.setItem('microtools_todos',JSON.stringify(todos));
+    const renderTodos=()=>{let list=document.getElementById('todoList');if(!list)return;list.innerHTML='';if(todos.length===0){list.innerHTML='<p style="color:#64748b;text-align:center;padding:20px;">✨ Belum ada tugas</p>';return;}
+    todos.forEach((todo,i)=>{let li=document.createElement('li');li.className='todo-item';let cb=document.createElement('input');cb.type='checkbox';cb.checked=todo.done;cb.onchange=()=>{todos[i].done=!todos[i].done;saveTodos();renderTodos();};let span=document.createElement('span');span.className='todo-text'+(todo.done?' done':'');span.textContent=todo.text;let del=document.createElement('button');del.textContent='Hapus';del.onclick=()=>{todos.splice(i,1);saveTodos();renderTodos();};li.appendChild(cb);li.appendChild(span);li.appendChild(del);list.appendChild(li);});}
+    window.addTodo=()=>{let input=document.getElementById('todoInput');let text=input.value.trim();if(!text)return alert('Masukkan tugas!');todos.push({text:text,done:false});saveTodos();renderTodos();input.value='';}
+    window.downloadTodo=()=>{if(!todos.length)return alert('Belum ada tugas');let txt="📋 DAFTAR TUGAS\n========================\n\n"+todos.map((t,i)=>`${i+1}. ${t.text} [${t.done?'✓ SELESAI':'○ BELUM'}]`).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));a.download='daftar_tugas.txt';a.click();}
+    renderTodos();
+
+    // TRANSLATOR
+    window.translateText=async()=>{let input=document.getElementById('translateInput').value.trim();let target=document.getElementById('langSelect').value;let out=document.getElementById('translateOutput');if(!input){out.value='⚠️ Masukkan teks';return;}out.value='⏳ Menerjemahkan...';try{let res=await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=auto|${target}`);let data=await res.json();out.value=data?.responseData?.translatedText?.replace(/\[auto\]/gi,'').trim()||'❌ Gagal';}catch(e){out.value='❌ Error koneksi';}}
+
+    // KALKULATOR
+    let expr='',history=JSON.parse(localStorage.getItem('calc_history')||'[]');
+    const saveHistory=()=>localStorage.setItem('calc_history',JSON.stringify(history));
+    const updateHistory=()=>{let hdiv=document.getElementById('historyList');if(!hdiv)return;hdiv.innerHTML=history.length?history.map(h=>`📐 ${h.expr} = ${h.res} (${h.time})`).join('<br>'):'Belum ada';}
+    window.calcInput=v=>{expr+=v;document.getElementById('calcDisplay').innerText=expr||'0';}
+    window.calcClear=()=>{expr='';document.getElementById('calcDisplay').innerText='0';}
+    window.calcResult=()=>{if(!expr)return;try{let e=expr.replace(/×/g,'*').replace(/÷/g,'/');let r=eval(e).toString();history.unshift({expr:expr,res:r,time:new Date().toLocaleTimeString()});if(history.length>10)history.pop();saveHistory();updateHistory();expr=r;document.getElementById('calcDisplay').innerText=expr;}catch(e){document.getElementById('calcDisplay').innerText='Error';expr='';}}
+    updateHistory();
+</script>
+</body>
+</html>
