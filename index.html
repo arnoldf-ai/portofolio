@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arnoldus Zebua | IT Engineer</title>
     <meta name="description" content="Portofolio Arnoldus Fahuwusa Zebua - IT Engineer, dibangun dari nol menggunakan smartphone.">
-    <<meta name="google-site-verification" content="O1rAy-H53hyuTbBP2xJFBZcEMn8-x3hpN3pS1XKMio" /> href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="O1rAy-H53hyuTbBP2xJFBZcEMn8-x3hpN3pS1XKMio">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,7 +20,6 @@
             color: #eef2ff;
             min-height: 100vh;
             transition: all 0.4s ease;
-            position: relative;
         }
 
         body.light-mode {
@@ -27,12 +27,6 @@
             color: #0f172a;
         }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Floating Socials */
         .floating-socials {
             position: fixed;
             right: 24px;
@@ -66,10 +60,6 @@
             color: #475569;
         }
 
-        .floating-socials a:nth-child(1) { animation-delay: 0.1s; }
-        .floating-socials a:nth-child(2) { animation-delay: 0.2s; }
-        .floating-socials a:nth-child(3) { animation-delay: 0.3s; }
-
         .floating-socials a:hover {
             transform: scale(1.15) translateY(-5px);
             background: #3b82f6;
@@ -83,7 +73,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
@@ -181,7 +170,6 @@
             margin: 0 auto 20px;
             border: 3px solid #3b82f6;
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-            transition: all 0.4s ease;
         }
 
         .avatar-wrapper img {
@@ -248,11 +236,6 @@
             border-radius: 40px;
             font-size: 13px;
             font-weight: 500;
-        }
-
-        body.light-mode .badge {
-            background: rgba(59, 130, 246, 0.08);
-            color: #2563eb;
         }
 
         .cta-row {
