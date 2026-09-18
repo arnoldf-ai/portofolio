@@ -5,36 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arnoldus Zebua | IT Engineer</title>
     <meta name="description" content="Portofolio Arnoldus Fahuwusa Zebua - IT Engineer, dibangun dari nol menggunakan smartphone.">
-    <meta name="google-site-verification" content="O1rAy-H53hyuTbBP2xJFBZcEMn8-x3hpN3pS1XKMio">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="O1rAy-H53hyuTbBP2xJFBZcEMn8-_x3hpN3pS1XKMio" />
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .hero { text-align: center; padding: 60px 20px 30px; }
+        .avatar-wrapper {
+            width: 130px; height: 130px; border-radius: 50%; overflow: hidden;
+            margin: 0 auto 24px; border: 3px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
         }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: #0a0c15;
-            color: #eef2ff;
-            min-height: 100vh;
-            transition: all 0.4s ease;
+        .avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-fallback {
+            width: 100%; height: 100%; background: var(--accent-gradient);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 48px; font-weight: 700; color: #0B1120;
         }
-
-        body.light-mode {
-            background: #f1f5f9;
-            color: #0f172a;
+        .hero h1 { font-size: 2.6em; margin-bottom: 4px; }
+        .typewriter-wrapper { min-height: 32px; margin-bottom: 20px; }
+        .typewriter {
+            color: var(--accent-light); font-size: 1.1em; font-weight: 600;
+            letter-spacing: 0.5px; border-right: 2px solid var(--accent);
+            padding-right: 6px; animation: blink 0.7s infinite;
         }
+        @keyframes blink { 50% { border-color: transparent; } }
+        .badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+        .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .about-card { margin-top: 28px; }
+        .about-card h2 { font-size: 1.4em; margin-bottom: 14px; border-left: 4px solid var(--accent); padding-left: 14px; }
+        .about-card p { color: var(--text-secondary); line-height: 1.8; font-size: 0.95em; }
+        .about-card strong { color: var(--accent-light); }
+        @media (max-width: 500px) { .hero h1 { font-size: 1.9em; } }
+    </style>
+</head>
+<body>
 
-        .floating-socials {
-            position: fixed;
-            right: 24px;
-            bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 99;
+    <canvas id="starfield"></canvas>
+
+    <div class="floating-socials">
+        <a href="https://instagram.com/arnoldfzebua" target="_blank" title="Instagram">📸</a>
+        <a href="https://github.com/arnoldf-ai" target="_blank" title="GitHub">🐱</a>
+        <a href="https://wa.me/6285246843647" target="_blank" title="WhatsApp">💬</a>
+    </div>
+
+    <div class="content-wrapper">
+        <nav>
+            <a href="index.html" class="nav-logo">AZ</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="skill.html">Skill</a>
+                <a href="projek.html">Projek</a>
+                <a href="kontak.html">Kontak</a>
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀️</button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="hero animate-in">
+                <div class="avatar-wrapper">
+                    <img src="https://arnoldf-ai.github.io/portofolio/file_00000000be6472089b13f3a3a00ca6f6.png" alt="Arnoldus Zebua"
+                         onerror="this.style.display='none';document.getElementById('afb').style.display='flex';">
+                    <div class="avatar-fallback" id="afb" style="display:none;">AZ</div>
+                </div>
+                <h1 class="gradient-text">Arnoldus Fahuwusa Zebua</h1>
+                <div class="typewriter-wrapper">
+                    <span class="typewriter" id="typewriter"></span>
+                </div>
+                <div class="badge-row">
+                    <span class="badge badge-success">🚀 Available for Opportunities</span>
+                    <span class="badge badge-accent">📱 Mobile Creator</span>
+                </div>
+                <div class="cta-row">
+                    <a href="projek.html" class="btn btn-primary">🔍 Lihat Projek</a>
+                    <a href="kontak.html" class="btn btn-secondary">💬 Hubungi Saya</a>
+                    <a href="#" class="btn btn-cv">📄 Download CV</a>
+                </div>
+            </div>
+
+            <div class="card about-card animate-in" style="animation-delay:0.2s;">
+                <h2>👋 Tentang Saya</h2>
+                <p>
+                    Halo! Saya <strong>Arnoldus</strong>, seorang IT Engineer yang membangun karier dari nol — benar-benar dari smartphone.
+                    Website ini adalah bukti bahwa keterbatasan alat bukanlah hambatan untuk menciptakan karya profesional.
+                    Saat ini saya fokus di <strong>web development</strong>, <strong>UI engineering</strong>,
+                    dan terus mengasah skill untuk menjadi full-stack developer.
+                </p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card animate-in" style="animation-delay:0.25s;"><div class="stat-number">2+</div><div class="stat-label">Projek Selesai</div></div>
+                <div class="stat-card animate-in" style="animation-delay:0.3s;"><div class="stat-number">6+</div><div class="stat-label">Tools Dikuasai</div></div>
+                <div class="stat-card animate-in" style="animation-delay:0.35s;"><div class="stat-number">100%</div><div class="stat-label">Dari HP</div></div>
+                <div class="stat-card animate-in" style="animation-delay:0.4s;"><div class="stat-number">∞</div><div class="stat-label">Semangat Belajar</div></div>
+            </div>
+        </div>
+
+        <footer>© 2026 Arnoldus Fahuwusa Zebua — Dibangun dengan ❤️ dari Android</footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+        resize(); addEventListener('resize', () => { resize(); init(); });
+        function init() {
+            stars = [];
+            const n = Math.floor((canvas.width * canvas.height) / 2500);
+            for (let i = 0; i < n; i++) stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 1.6 + 0.3, s: Math.random() * 0.3 + 0.1, o: Math.random(), ts: Math.random() * 0.015 + 0.005 });
+        }
+        init();
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const light = document.body.classList.contains('light-mode');
+            const color = light ? 'rgba(59, 130, 246, OP)' : 'rgba(148, 163, 184, OP)';
+            stars.forEach(st => {
+                st.o += st.ts; if (st.o > 1 || st.o < 0.1) st.ts *= -1;
+                st.y += st.s; if (st.y > canvas.height) { st.y = 0; st.x = Math.random() * canvas.width; }
+                ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+                ctx.fillStyle = color.replace('OP', st.o); ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        const phrases = ['IT Engineer', 'Web Developer', 'From Scratch to Production', 'Mobile Creator', 'Full-Stack Learner'];
+        let pi = 0, ci = 0, del = false;
+        const tw = document.getElementById('typewriter');
+        function type() {
+            const cur = phrases[pi];
+            if (!del) {
+                tw.textContent = cur.substring(0, ci + 1); ci++;
+                if (ci === cur.length) { del = true; setTimeout(type, 2000); return; }
+            } else {
+                tw.textContent = cur.substring(0, ci - 1); ci--;
+                if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+            }
+            setTimeout(type, del ? 35 : 75);
+        }
+        type();
+
+        const body = document.body;
+        const themeBtn = document.getElementById('themeBtn');
+        function setTheme(m) {
+            if (m === 'light') { body.classList.add('light-mode'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'light'); }
+            else { body.classList.remove('light-mode'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'dark'); }
+        }
+        function toggleTheme() { body.classList.contains('light-mode') ? setTheme('dark') : setTheme('light'); }
+        (() => { const s = localStorage.getItem('theme'); s === 'light' ? setTheme('light') : setTheme('dark'); })();
+    </script>
+</body>
+</html>            z-index: 99;
         }
 
         .floating-socials a {
